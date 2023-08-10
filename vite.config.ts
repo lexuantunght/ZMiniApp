@@ -7,6 +7,9 @@ export default () => {
     return defineConfig({
         root: './src',
         base: '',
-        plugins: [reactRefresh(), tsconfigPaths()],
+        plugins: [
+            reactRefresh(),
+            tsconfigPaths(),
+        ],
     });
 };
