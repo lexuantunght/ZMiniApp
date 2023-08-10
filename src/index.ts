@@ -1,6 +1,8 @@
 // Import React and ReactDOM
 import React from 'react';
 import { createRoot } from 'react-dom/client';
+// Import translation
+import { loadLanguages } from 'utils/lang';
 
 
 // Import tailwind styles
@@ -18,6 +20,8 @@ if (!window.APP_CONFIG) {
   // @ts-ignore
   window.APP_CONFIG = appConfig;
 }
+
+loadLanguages();
 
 // Mount React App
 const root = createRoot(document.getElementById('app')!);

@@ -8,6 +8,7 @@ export class Lang {
 		}
 		return this.instance;
 	}
+
 	trans(textKey: string) {
 		return i18n.t(textKey);
 	}
