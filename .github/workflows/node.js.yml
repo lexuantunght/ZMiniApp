@@ -54,7 +54,7 @@ jobs:
           cache: "npm"
       - run: npm install
       - run: npm install -g zmp-cli
-      - run: npm predeploy
+      - run: npm run predeploy
       - run: npx zmp-developer-token deploy ${{ matrix.mini-app-id }}
         env:
           NEW_ACCESS_TOKEN: ${{ secrets.ZALO_ACCESS_TOKEN }}
