@@ -1,12 +1,12 @@
 import React from 'react';
 import { Page } from 'zmp-ui';
 
-const HomePage = () => {
+const ProfilePage = () => {
 	return (
 		<Page>
-			<div>home</div>
+			<div>profile</div>
 		</Page>
 	);
 };
 
-export default HomePage;
+export default ProfilePage;
