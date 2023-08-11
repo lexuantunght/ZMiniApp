@@ -16,7 +16,8 @@
   ],
   "scripts": {
     "start": "zmp start --port 3002",
-    "deploy": "npm run lang && zmp deploy",
+    "deploy": "zmp deploy",
+    "predeploy": "npm run lang",
     "build:css": "postcss src/static/scss/tailwind.css -o src/static/scss/styles.css",
     "lang": "mpp lang src/static/res/lang.csv src/static/locales",
     "lint": "eslint ."
