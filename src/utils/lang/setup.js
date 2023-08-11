@@ -11,7 +11,7 @@ export const loadLanguages = () => {
 	const locales = [EN, VI];
 	for (let i = 0; i < supportedLangs.length; i++) {
 		const lng = supportedLangs[i];
-		langMap[lng] = { translation: locales[i].default };
+		langMap[lng] = { translation: locales[i] };
 	}
 
 	i18n.use(initReactI18next).init({
@@ -26,4 +26,3 @@ export const loadLanguages = () => {
 
 	return i18n;
 };
-
