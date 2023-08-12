@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getUserInfo } from 'zmp-sdk';
+import { getUserInfo, setNavigationBarLeftButton } from 'zmp-sdk';
 import { Avatar, Page, Tabs } from 'zmp-ui';
 import { BsPeople } from 'react-icons/bs';
 import { CiLocationArrow1 } from 'react-icons/ci';
@@ -56,6 +56,7 @@ const ProfilePage = () => {
 	const [userInfo, setUserInfo] = useState<any>(null);
 
 	useEffect(() => {
+		setNavigationBarLeftButton({ type: 'none' });
 		const _getUserInfo = async () => {
 			const result = await getUserInfo();
 			setUserInfo(result.userInfo);
@@ -71,8 +72,9 @@ const ProfilePage = () => {
 					<Avatar src={userInfo?.avatar} className="avatar" />
 					<div className="my-profile-desc">
 						<h3 className="my-profile-name">{userInfo?.name}</h3>
-						<div className='zaui-box-flex'>
-							Tuổi: <span className="my-profile-age">23</span>{` - `}
+						<div className="zaui-box-flex">
+							Tuổi: <span className="my-profile-age">23</span>
+							{` - `}
 							Giới tính: <span className="my-profile-gender">Nam</span>
 						</div>
 						<div className="my-profile-following">

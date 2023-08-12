@@ -11,6 +11,7 @@ import SwimSvg from 'static/img/swim.png';
 import TenisSvg from 'static/img/tenis.png';
 import SelectCardItem from './card-item';
 import EventsController from 'features/events/controller';
+import { setNavigationBarTitle } from 'zmp-sdk';
 
 const sports = [
 	{
@@ -46,6 +47,10 @@ const EventCreate = () => {
 	const [step, setStep] = React.useState(0);
 	const navigate = useNavigate();
 	const [enableCost, setEnableCost] = React.useState(false);
+
+	React.useEffect(() => {
+		setNavigationBarTitle({ title: 'Create event' });
+	}, []);
 
 	const renderSteps = () => {
 		const items: JSX.Element[] = [];

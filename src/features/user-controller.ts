@@ -1,3 +1,4 @@
+import { MainAPI } from 'core/api';
 import { GetUserInfoReturns, getUserInfo } from 'zmp-sdk';
 
 class UserController {
@@ -10,6 +11,7 @@ class UserController {
 		return getUserInfo().then((info) => {
 			if (info.userInfo) {
 				this.userInfo = info.userInfo;
+				MainAPI.setUser(this.userInfo);
 			}
 		});
 	}

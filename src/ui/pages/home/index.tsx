@@ -7,6 +7,7 @@ import { MdOutlineSportsTennis, MdOutlineSportsCricket } from 'react-icons/md';
 import { GameLevels, GameTypes, HomeTabs } from 'ui/common/constants';
 import { GameCardPreviewList } from 'ui/components/game-card-preview-list';
 import { GameCardPreview } from 'ui/components/game-card-preview';
+import { setNavigationBarLeftButton } from 'zmp-sdk';
 // import { FaPersonSwimming } from 'react-icons/fa';
 
 const tags = [
@@ -102,6 +103,10 @@ const HomePage = () => {
 	const [isLoading, setLoading] = useState(false);
 	const { t } = useLang();
 	const navigate = useNavigate();
+
+	React.useEffect(() => {
+		setNavigationBarLeftButton({ type: 'none' });
+	}, []);
 
 	const [activeTab, setActiveTab] = useState(HomeTabs.DISCOVER);
 

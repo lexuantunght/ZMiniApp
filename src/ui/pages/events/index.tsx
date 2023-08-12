@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import useLang from 'utils/hooks/use-lang';
+import { setNavigationBarLeftButton, setNavigationBarTitle } from 'zmp-sdk';
 import { Page, Button, useNavigate, AnimationRoutes } from 'zmp-ui';
 import EventCreate from './creation';
 import EventCreateResult from './creation/result';
@@ -15,6 +16,11 @@ const EventsPage = () => {
 	const onClickCreate = () => {
 		navigate('/my-events/create');
 	};
+
+	React.useEffect(() => {
+		setNavigationBarLeftButton({ type: 'none' });
+		setNavigationBarTitle({ title: 'My events' });
+	}, []);
 
 	return (
 		<Page className="zpage-container">
@@ -43,7 +49,7 @@ const EventsPageStack = () => {
 			<Route path="/" element={<EventsPage />} />
 			<Route path="/create" element={<EventCreate />} />
 			<Route path="/result/*" element={<EventCreateResult />} />
-			<Route path="/chat" element={<EventPageChat />} />
+			<Route path="/chat/*" element={<EventPageChat />} />
 		</AnimationRoutes>
 	);
 };

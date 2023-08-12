@@ -9,7 +9,7 @@ export const getAllEvents = () => {
 };
 
 export const getAllMessages = (eventId: number | string) => {
-	return Fetch.get('/events/discuss?id=' + eventId);
+	return Fetch.get('/events/discuss?gameId=' + eventId);
 };
 
 export const sendMessage = (params: any) => {
