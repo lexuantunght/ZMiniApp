@@ -5,6 +5,7 @@ import { Page, Button, useNavigate, AnimationRoutes, Header } from 'zmp-ui';
 import EventCreate from './creation';
 import EventCreateResult from './creation/result';
 import EventPageChat from './chat';
+import EventMembers from './creation/members';
 import { GameCardPreview } from 'ui/components/game-card-preview';
 import { gameList } from '../home';
 
@@ -26,7 +27,7 @@ const EventsPage = () => {
 			<div className="event-page-list">
 				{gameList.map((item, key) => (
 					<GameCardPreview
-						onClick={() => navigate('/my-events/result')}
+						onClick={() => navigate('/my-events/result/${item.id}')}
 						key={key}
 						item={item}
 						type="discover-game"
@@ -48,8 +49,9 @@ const EventsPageStack = () => {
 		<AnimationRoutes>
 			<Route path="/" element={<EventsPage />} />
 			<Route path="/create" element={<EventCreate />} />
-			<Route path="/result" element={<EventCreateResult />} />
+			<Route path="/result/*" element={<EventCreateResult />} />
 			<Route path="/chat" element={<EventPageChat />} />
+			<Route path="/members/*" element={<EventMembers />} />
 		</AnimationRoutes>
 	);
 };
