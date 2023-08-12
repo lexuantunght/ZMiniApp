@@ -16,6 +16,10 @@ const EventsPage = () => {
 		navigate('/my-events/create');
 	};
 
+	const updateGameResult = () => {
+		navigate('/update-game-result/123333');
+	}
+
 	return (
 		<Page className="zpage-container">
 			<Header className="zpage-header" showBackIcon={false} title={t('STR_MY_EVENTS')} />
@@ -30,7 +34,8 @@ const EventsPage = () => {
 				))}
 			</div>
 			<div className="event-page-create bg-white">
-				<Button onClick={onClickCreate} className="w-full">
+				{/* <Button onClick={onClickCreate} className="w-full"> */}
+				<Button onClick={updateGameResult} className="w-full">
 					{t('STR_CREATE_EVENT')}
 				</Button>
 			</div>
