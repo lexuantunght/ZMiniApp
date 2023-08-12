@@ -1,3 +1,7 @@
+.home-container {
+	padding: 12px;
+}
+
 .discover-tags-container {
 	overflow-x: auto;
 	white-space: nowrap;
@@ -29,7 +33,6 @@
 }
 
 .game-card-preview-list {
-	padding: 12px;
 
 	.game-card-preview {
 		position: relative;
@@ -85,7 +88,9 @@
 			font-weight: 600;
 		}
 
-		&__status {}
+		&__status {
+
+		}
 
 		&__body {
 			padding: 8px;
@@ -94,7 +99,7 @@
 		&__participants {
 			display: flex;
 			gap: 4px;
-			margin-bottom: 6px;
+			margin-bottom: 16px;
 		}
 
 		&__participant {
@@ -155,6 +160,41 @@
 		&__location-text {
 			font-size: 12px;
 			font-weight: 500;
+		}
+
+		&__footer {
+			padding: 0 4px 12px 4px;
+			
+			display: flex;
+			align-items: center;
+			justify-content: space-evenly;
+		
+		}
+	}
+}
+
+.home-tabs-container {
+	display: flex;
+	gap: 6px;
+	margin-bottom: 8px;
+
+	.home-tab {
+		box-sizing: content-box;
+		display: flex;
+		align-items: center;
+		border-radius: 4px;
+		font-size: 14px;
+		font-weight: 600;
+		padding: 8px 12px;
+		background-color: white;
+
+		&:hover {
+			// background-color: ;
+		}
+
+		&.active {
+			color: #52A0FF;
+			background-color: #D6E9FF;
 		}
 	}
 }

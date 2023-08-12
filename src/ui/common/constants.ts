@@ -1,8 +1,17 @@
+export const HomeTabs = {
+	DISCOVER: 'discover',
+	JOINED: 'joined',
+};
+
 export const GameLevels = {
 	BEGINNER: 'beginner',
 	INTER: 'intermediate',
 	ADVANCED: 'advanced',
 };
+
+export const GameStatus = {
+	// Upcomming
+}
 
 export const GameTypes = {
 	SWIMMING: {

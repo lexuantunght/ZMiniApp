@@ -1,11 +1,10 @@
 import React from 'react';
 import { GiLevelEndFlag } from 'react-icons/gi';
 import { CiLocationArrow1 } from 'react-icons/ci';
-import { Avatar } from 'zmp-ui';
+import { Avatar, Button } from 'zmp-ui';
 import { GameLevels } from 'ui/common/constants';
 
 export const GameCardPreview = (props) => {
-	console.log(props);
 	return (
 		<div className="game-card-preview">
 			<div
@@ -56,6 +55,12 @@ export const GameCardPreview = (props) => {
 					<span className="game-card-preview__location-text">{props.item.location}</span>
 				</div>
 			</div>
+
+			{props.type === 'discover-game' && (
+				<div className="game-card-preview__footer">
+					<Button size="small">Tham gia</Button>
+				</div>
+			)}
 		</div>
 	);
 };

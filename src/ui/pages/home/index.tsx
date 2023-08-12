@@ -4,8 +4,9 @@ import { Input, Page } from 'zmp-ui';
 import { LiaVolleyballBallSolid } from 'react-icons/lia';
 import { PiSoccerBall } from 'react-icons/pi';
 import { MdOutlineSportsTennis, MdOutlineSportsCricket } from 'react-icons/md';
-import { GameLevels, GameTypes } from 'ui/common/constants';
+import { GameLevels, GameTypes, HomeTabs } from 'ui/common/constants';
 import { GameCardPreviewList } from 'ui/components/game-card-preview-list';
+import { GameCardPreview } from 'ui/components/game-card-preview';
 // import { FaPersonSwimming } from 'react-icons/fa';
 
 const tags = [
@@ -101,21 +102,23 @@ const HomePage = () => {
 	const [isLoading, setLoading] = useState(false);
 	const { t } = useLang();
 
+	const [activeTab, setActiveTab] = useState(HomeTabs.DISCOVER);
+
 	//TODO: filter by which...
 	//We get from results -> and display...
 
 	return (
 		<Page>
 			<div className="home-container">
-				<div className="home-header">
+				{/* <div className="home-header">
 					<Input.Search
 						className="search"
 						placeholder={`${t('STR_SEARCH_PLACE_HOLDER')}...`}
 						loading={isLoading}
 						onSearch={(text) => console.log('[mtd] text: ', text)}
 					/>
-				</div>
-				<section className="discover-tags-container">
+				</div> */}
+				{/* <section className="discover-tags-container">
 					<ul className="discover-tags-list">
 						{tags.map((tag) => {
 							return (
@@ -126,12 +129,43 @@ const HomePage = () => {
 							);
 						})}
 					</ul>
-				</section>
+				</section> */}
+				<div className="home-tabs-container">
+					<span
+						className={`home-tab ${HomeTabs.DISCOVER === activeTab && 'active'}`}
+						onClick={() => {
+							setActiveTab(HomeTabs.DISCOVER);
+						}}>
+						Khám phá
+					</span>
+					<span
+						className={`home-tab ${HomeTabs.JOINED === activeTab && 'active'}`}
+						onClick={() => {
+							setActiveTab(HomeTabs.JOINED);
+						}}>
+						Đã tham gia
+					</span>
+				</div>
 
-				<section className="discover-games-container">
-					<div className="discover-games-title">Gần đây</div>
-					<GameCardPreviewList list={gameList} />
-				</section>
+				{activeTab === HomeTabs.DISCOVER && (
+					<section className="discover-games-container">
+						<GameCardPreviewList>
+							{gameList.map((game) => {
+								return <GameCardPreview key={game.id} item={game} type="discover-game" />;
+							})}
+						</GameCardPreviewList>
+					</section>
+				)}
+
+				{activeTab === HomeTabs.JOINED && (
+					<section className="joined-games-container">
+						<GameCardPreviewList>
+							{gameList.map((game) => {
+								return <GameCardPreview key={game.id} item={game} type="joined-game" />;
+							})}
+						</GameCardPreviewList>
+					</section>
+				)}
 			</div>
 		</Page>
 	);
