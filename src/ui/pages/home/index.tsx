@@ -10,6 +10,7 @@ import { GameCardPreview } from 'ui/components/game-card-preview';
 import { GameCardPreviewV2 } from 'ui/components/game-card-preview/game-card-preview-v2';
 // import { FaPersonSwimming } from 'react-icons/fa';
 import { Fetch } from 'core/network';
+import { getUserInfo } from 'zmp-sdk';
 
 const tags = [
 	{
@@ -113,6 +114,19 @@ const HomePage = () => {
 	const [activeTab, setActiveTab] = useState(HomeTabs.DISCOVER);
 	const [filteredGameList, setFilteredGameList] = useState([]);
 	const [gameCates, setGameCates] = useState([]);
+	const [userInfo, setUserInfo] = useState<any>(null);
+	const [activeTagName, setActiveTagName] =useState<string>('');
+
+	useEffect(() => {
+		const _getUserInfo = async () => {
+			if (!userInfo) {
+				const res = await getUserInfo();
+				setUserInfo(res.userInfo);
+			}
+		}
+
+		_getUserInfo();
+	}, []);
 
 	useEffect(() => {
 		async function getGameCates() {
@@ -129,15 +143,34 @@ const HomePage = () => {
 
 	useEffect(() => {
 		async function getAllSports() {
+			let _userInfo = userInfo;
+			if (!_userInfo) {
+				_userInfo = (await getUserInfo()).userInfo;
+				setUserInfo(_userInfo);
+			}
+
 			const res = await Fetch.get('/events');
 			console.log('[mtd] res ', res.data.data);
 			if (res.data?.data?.length) {
-				setFilteredGameList(res.data.data);
+				let list = res.data.data;
+
+				if (activeTab === HomeTabs.DISCOVER) {
+					list = list;
+				} else {
+					list = list.filter(i  => i.players.includes(_userInfo.id));
+				}
+
+				//TODO: filter out...
+				if (activeTagName) {
+					list = list.filter(i => i.sport === activeTagName);
+				} 
+
+				setFilteredGameList(list);
 			}
 		}
 
 		getAllSports();
-	}, []);
+	}, [activeTab, activeTagName]);
 
 	//TODO: filter by which...
 	//We get from results -> and display...
@@ -166,7 +199,13 @@ const HomePage = () => {
 					<ul className="discover-tags-list">
 						{gameCates.map((gameCate) => {
 							return (
-								<li key={gameCate.id} className="discover-tag-item">
+								<li onClick={() => {
+									if (activeTagName === gameCate.name) {
+										setActiveTagName('');
+									} else {
+										setActiveTagName(gameCate.name);
+									}
+								}} key={gameCate.id} className={`discover-tag-item ${activeTagName === gameCate.name && "active"}`}>
 									<span className="discover-tag-item__text">{gameCate.name}</span>
 								</li>
 							);
@@ -194,9 +233,9 @@ const HomePage = () => {
 				{activeTab === HomeTabs.JOINED && (
 					<section className="joined-games-container">
 						<GameCardPreviewList>
-							{gameList.map((game) => {
+							{filteredGameList.map((game) => {
 								return (
-									<GameCardPreview key={game.id} item={game} type="joined-game" />
+									<GameCardPreviewV2 key={game.id} item={game} type="joined-game" />
 								);
 							})}
 						</GameCardPreviewList>

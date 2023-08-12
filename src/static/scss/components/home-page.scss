@@ -30,6 +30,15 @@
 		background-color: #f7f7f7;
 		margin-right: 10px;
 		border-radius: 10px;
+
+		&:hover {
+			cursor: pointer;
+		}
+
+		&.active {
+			background-color: #52A0FF;
+			color: white
+		}
 	}
 }
 
