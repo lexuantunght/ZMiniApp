@@ -3,9 +3,41 @@ import useLang from 'utils/hooks/use-lang';
 import { Button, DatePicker, Icon, Input, Page, Progress, Switch, useNavigate } from 'zmp-ui';
 import TimePicker from 'ui/components/time-picker';
 import { useFormik } from 'formik';
+import FootballSvg from 'static/img/football.png';
+import BadminSvg from 'static/img/badminton.png';
+import ChessSvg from 'static/img/chesss.png';
+import RunSvg from 'static/img/run.png';
+import SwimSvg from 'static/img/swim.png';
+import TenisSvg from 'static/img/tenis.png';
 import SelectCardItem from './card-item';
+import EventsController from 'features/events/controller';
 
-const sports = ['Badminton', 'Chess', 'Football', 'Swimming', 'Running'];
+const sports = [
+	{
+		name: 'Football',
+		Icon: FootballSvg,
+	},
+	{
+		name: 'Badminton',
+		Icon: BadminSvg,
+	},
+	{
+		name: 'Chess',
+		Icon: ChessSvg,
+	},
+	{
+		name: 'Running',
+		Icon: RunSvg,
+	},
+	{
+		name: 'Swimming',
+		Icon: SwimSvg,
+	},
+	{
+		name: 'Tennis',
+		Icon: TenisSvg,
+	},
+];
 
 const levels = ['Beginner', 'Intermediate', 'Advanced'];
 
@@ -23,16 +55,24 @@ const EventCreate = () => {
 				<div className="event-page-select-list">
 					{sports.map((item, key) => (
 						<SelectCardItem
-							selected={formik.values.sport === item}
+							selected={formik.values.sport === key}
+							onClick={() => formik.setFieldValue('sport', key)}
 							key={key}
-							name={item}
+							icon={item.Icon}
+							name={item.name}
 						/>
 					))}
 				</div>
 				<span className="my-4 mx-3">{t('STR_SELECT_LEVEL')}</span>
 				<div className="event-page-select-list mb-4">
 					{levels.map((item, key) => (
-						<SelectCardItem key={key} name={item} />
+						<SelectCardItem
+							selected={formik.values.level === key}
+							onClick={() => formik.setFieldValue('level', key)}
+							isLv
+							key={key}
+							name={item}
+						/>
 					))}
 				</div>
 				<Input
@@ -59,13 +99,18 @@ const EventCreate = () => {
 					<Icon icon="zi-arrow-right" />
 					<TimePicker defaultValue={Date.now() + 1800000} />
 				</div>
-				<Input groupClassName="mt-4" label={t('STR_LOCATION')} />
+				<Input
+					groupClassName="mt-4"
+					id="address"
+					onChange={formik.handleChange}
+					label={t('STR_LOCATION')}
+				/>
 			</div>
 		);
 
 		items.push(
 			<div className="flex flex-col px-3">
-				<Input label={t('STR_ACT_NAME')} />
+				<Input id="name" onChange={formik.handleChange} label={t('STR_ACT_NAME')} />
 				<div className="flex justify-between mt-4">
 					<span>{t('STR_COST')}</span>
 					<Switch
@@ -73,9 +118,15 @@ const EventCreate = () => {
 						checked={enableCost}
 					/>
 				</div>
-				<Input disabled={!enableCost} value={formik.values.cost} type="number" />
+				<Input
+					id="cost"
+					onChange={formik.handleChange}
+					disabled={!enableCost}
+					value={formik.values.cost}
+					type="number"
+				/>
 				<br />
-				<Input.TextArea label={t('STR_NOTE')} />
+				<Input.TextArea id="note" onChange={formik.handleChange} label={t('STR_NOTE')} />
 			</div>
 		);
 
@@ -86,19 +137,20 @@ const EventCreate = () => {
 		if (step < 2) {
 			setStep(step + 1);
 		} else {
+			EventsController.createEvent(formik.values);
 			navigate('/my-events', { replace: true });
 		}
 	};
 
 	const formik = useFormik({
 		initialValues: {
-			sport: '',
-			level: '',
+			sport: 0,
+			level: 0,
 			numerPlayers: 2,
 			date: Date.now(),
 			startTime: new Date().getTime(),
 			endTime: new Date().getTime() + 180000,
-			location: '',
+			address: '',
 			name: '',
 			cost: 0,
 			note: '',
