@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Route } from 'react-router-dom';
 import useLang from 'utils/hooks/use-lang';
 import { setNavigationBarLeftButton, setNavigationBarTitle } from 'zmp-sdk';
@@ -9,6 +9,8 @@ import EventPageChat from './chat';
 import EventMembers from './creation/members';
 import { GameCardPreview } from 'ui/components/game-card-preview';
 import { GameCardPreviewV2 } from 'ui/components/game-card-preview/game-card-preview-v2';
+import { Fetch } from 'core/network';
+import userController from 'features/user-controller';
 
 const EventsPage = () => {
 	const { t } = useLang();
@@ -18,6 +20,14 @@ const EventsPage = () => {
 	const onClickCreate = () => {
 		navigate('/my-events/create');
 	};
+
+	useEffect(() => {
+		Fetch.get(`/events/hosted?userId=${userController.userInfo.id}`).then((res) => {
+			if (res?.data?.data.length) {
+				setMyEvents(res.data.data);
+			}
+		});
+	}, []);
 
 	React.useEffect(() => {
 		setNavigationBarLeftButton({ type: 'none' });
