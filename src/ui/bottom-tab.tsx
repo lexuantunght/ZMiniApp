@@ -14,7 +14,7 @@ const BottomTab = () => {
 		<Page>
 			<AnimationRoutes>
 				<Route path="/" element={<HomePage />} />
-				<Route path="/my-events" element={<EventsPage />} />
+				<Route path="/my-events/*" element={<EventsPage />} />
 				<Route path="/profile" element={<ProfilePage />} />
 			</AnimationRoutes>
 			<BottomNavigation fixed activeKey={activeTab} onChange={setActiveTab}>
