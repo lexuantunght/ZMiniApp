@@ -8,10 +8,14 @@ export const getAllEvents = () => {
 	return Fetch.get('/events');
 };
 
-export const getAllMessages = (eventId: number) => {
+export const getAllMessages = (eventId: number | string) => {
 	return Fetch.get('/events/discuss?id=' + eventId);
 };
 
 export const sendMessage = (params: any) => {
 	return Fetch.post('/events/discuss/send', params);
+};
+
+export const getEventById = (id: string | number) => {
+	return Fetch.get('/events/detail?id=' + id);
 };

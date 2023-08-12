@@ -13,8 +13,12 @@ class EventsController {
 		return EventsAPI.sendMessage(params);
 	}
 
-	getAllMessages(eventId: number) {
+	getAllMessages(eventId: number | string) {
 		return EventsAPI.getAllMessages(eventId);
+	}
+
+	getEventById(eventId: number | string) {
+		return EventsAPI.getEventById(eventId);
 	}
 }
 
