@@ -232,7 +232,6 @@ const HomePage = () => {
 												navigate('/my-events/result' + '/' + game.id)
 											}
 											item={game}
-											type="discover-game"
 										/>
 									);
 								})}
@@ -252,7 +251,7 @@ const HomePage = () => {
 										<GameCardPreviewV2
 											key={game.id}
 											item={game}
-											type="joined-game"
+											type="joined"
 											onClick={() =>
 												navigate('/my-events/result' + '/' + game.id)
 											}

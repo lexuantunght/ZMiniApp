@@ -69,8 +69,8 @@ export const GameCardPreviewV2 = (props) => {
 							</span>
 						</div>
 					</div>
-					<Button size="small" className="game-card-preview-v2__btn">
-						Tham gia
+					<Button size="small" className="game-card-preview-v2__btn" disabled={props.type === 'joined'}>
+						{props.type === 'joined' ? 'Đã tham gia': 'Tham gia'}
 					</Button>
 				</div>
 			</div>

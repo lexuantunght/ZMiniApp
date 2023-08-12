@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Route } from 'react-router-dom';
 import useLang from 'utils/hooks/use-lang';
 import { setNavigationBarLeftButton, setNavigationBarTitle } from 'zmp-sdk';
@@ -8,11 +8,12 @@ import EventCreateResult from './creation/result';
 import EventPageChat from './chat';
 import EventMembers from './creation/members';
 import { GameCardPreview } from 'ui/components/game-card-preview';
-import { gameList } from '../home';
+import { GameCardPreviewV2 } from 'ui/components/game-card-preview/game-card-preview-v2';
 
 const EventsPage = () => {
 	const { t } = useLang();
 	const navigate = useNavigate();
+	const [myEvents, setMyEvents] = useState([]);
 
 	const onClickCreate = () => {
 		navigate('/my-events/create');
@@ -29,19 +30,22 @@ const EventsPage = () => {
 	return (
 		<Page className="zpage-container">
 			<div className="event-page-list">
-				{gameList.map((item, key) => (
-					<GameCardPreview
-						onClick={() => navigate('/my-events/result/${item.id}')}
-						key={key}
-						item={item}
-						type="discover-game"
-					/>
-				))}
+				{myEvents?.length > 0 ? (
+					myEvents.map((item, key) => (
+						<GameCardPreviewV2
+							onClick={() => navigate('/my-events/result/${item.id}')}
+							key={key}
+							item={item}
+							type="joined"
+						/>
+					))
+				) : (
+					<div className="result-not-found">Bạn chưa có hoạt động nào...</div>
+				)}
 			</div>
 			<div className="event-page-create bg-white">
-				{/* <Button onClick={onClickCreate} className="w-full"> */}
-				<Button onClick={updateGameResult} className="w-full">
-					Tạo sự kiện mới
+				<Button onClick={onClickCreate} className="w-full">
+					{t('STR_CREATE_EVENT')}
 				</Button>
 			</div>
 		</Page>
