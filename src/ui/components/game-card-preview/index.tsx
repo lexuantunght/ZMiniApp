@@ -6,7 +6,7 @@ import { GameLevels } from 'ui/common/constants';
 
 export const GameCardPreview = (props) => {
 	return (
-		<div className="game-card-preview">
+		<div onClick={props.onClick} className="game-card-preview">
 			<div
 				className="game-card-preview__header"
 				style={{ backgroundImage: `url(${props.item.bgSrc})` }}>
