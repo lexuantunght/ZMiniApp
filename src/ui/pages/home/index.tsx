@@ -199,13 +199,18 @@ const HomePage = () => {
 					<ul className="discover-tags-list">
 						{gameCates.map((gameCate) => {
 							return (
-								<li onClick={() => {
-									if (activeTagName === gameCate.name) {
-										setActiveTagName('');
-									} else {
-										setActiveTagName(gameCate.name);
-									}
-								}} key={gameCate.id} className={`discover-tag-item ${activeTagName === gameCate.name && "active"}`}>
+								<li
+									onClick={() => {
+										if (activeTagName === gameCate.name) {
+											setActiveTagName('');
+										} else {
+											setActiveTagName(gameCate.name);
+										}
+									}}
+									key={gameCate.id}
+									className={`discover-tag-item ${
+										activeTagName === gameCate.name && 'active'
+									}`}>
 									<span className="discover-tag-item__text">{gameCate.name}</span>
 								</li>
 							);
@@ -215,32 +220,47 @@ const HomePage = () => {
 
 				{activeTab === HomeTabs.DISCOVER && (
 					<section className="discover-games-container">
-						{/* <GameCardPreviewList>
-							{filteredGameList.map((game) => {
-								return (
-									<GameCardPreviewV2
-										key={game.id}
-										onClick={() => navigate('/my-events/result' + '/' + game.id)}
-										item={game}
-										type="discover-game"
-									/>
-								);
-							})}
-						</GameCardPreviewList> */}
-						<div className='result-not-found'>Opps, không tìm thấy kết quả!!!</div>
+						{filteredGameList?.length > 0 ? (
+							<GameCardPreviewList>
+								{filteredGameList.map((game) => {
+									return (
+										<GameCardPreviewV2
+											key={game.id}
+											onClick={() =>
+												navigate('/my-events/result' + '/' + game.id)
+											}
+											item={game}
+											type="discover-game"
+										/>
+									);
+								})}
+							</GameCardPreviewList>
+						) : (
+							<div className="result-not-found">Opps, không tìm thấy kết quả!!!</div>
+						)}
 					</section>
 				)}
 
 				{activeTab === HomeTabs.JOINED && (
 					<section className="joined-games-container">
-						{/* <GameCardPreviewList>
-							{filteredGameList.map((game) => {
-								return (
-									<GameCardPreview key={game.id} item={game} type="joined-game" onClick={() => navigate('/my-events/result' + '/' + game.id)} />
-								);
-							})}
-						</GameCardPreviewList> */}
-						<div className='result-not-found'>Opps, không tìm thấy kết quả!!!</div>
+						{filteredGameList?.length > 0 ? (
+							<GameCardPreviewList>
+								{filteredGameList.map((game) => {
+									return (
+										<GameCardPreviewV2
+											key={game.id}
+											item={game}
+											type="joined-game"
+											onClick={() =>
+												navigate('/my-events/result' + '/' + game.id)
+											}
+										/>
+									);
+								})}
+							</GameCardPreviewList>
+						) : (
+							<div className="result-not-found">Opps, không tìm thấy kết quả!!!</div>
+						)}
 					</section>
 				)}
 			</div>
