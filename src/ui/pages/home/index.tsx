@@ -181,7 +181,7 @@ const HomePage = () => {
 								return (
 									<GameCardPreviewV2
 										key={game.id}
-										onClick={() => navigate('/my-events/result')}
+										onClick={() => navigate('/my-events/result' + '/' + game.id)}
 										item={game}
 										type="discover-game"
 									/>
@@ -196,7 +196,7 @@ const HomePage = () => {
 						<GameCardPreviewList>
 							{gameList.map((game) => {
 								return (
-									<GameCardPreview key={game.id} item={game} type="joined-game" />
+									<GameCardPreview key={game.id} item={game} type="joined-game" onClick={() => navigate('/my-events/result' + '/' + game.id)} />
 								);
 							})}
 						</GameCardPreviewList>

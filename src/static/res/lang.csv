@@ -16,6 +16,8 @@ STR_COST;Chi phí;Cost
 STR_NOTE;Ghi chú;Note
 STR_CHAT;Thảo luận;Discuss
 STR_INVITE;Mời bạn bè;Invite
-STR_EVENT_DETAIL;Chi tiết sự kiện;Event detail
+STR_EVENT_DETAIL;Chi tiết;Event detail
+STR_EVENT_MEMBERS;Thành viên sự kiện;Event members
 STR_TYPE_MSG;Nhập tin nhắn;Type message
 STR_SEARCH_PLACE_HOLDER;Tìm kiếm;Search
+STR_JOIN_BTN;Tham gia; Join
