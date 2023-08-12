@@ -5,6 +5,7 @@ import { Avatar, Button } from 'zmp-ui';
 import { GameLevels, GameTypes } from 'ui/common/constants';
 import { BiTime } from 'react-icons/bi';
 import { GoPerson } from 'react-icons/go';
+import moment from 'moment';
 
 export const GameCardPreviewV2 = (props) => {
 	console.log('[mtd] props ', props);
@@ -59,7 +60,7 @@ export const GameCardPreviewV2 = (props) => {
 					<div>
 						<div className="game-card-preview-v2__time-container">
 							<BiTime />
-							<div className="game-card-preview-v2__time">{props.item.startDttm}</div>
+							<div className="game-card-preview-v2__time">{moment(props.item.startDttm).format("DD/MM/YYYY")}</div>
 						</div>
 						<div className="game-card-preview-v2__location">
 							<CiLocationArrow1 className="game-card-preview-v2__icon" />{' '}

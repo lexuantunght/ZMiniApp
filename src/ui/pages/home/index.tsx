@@ -215,7 +215,7 @@ const HomePage = () => {
 
 				{activeTab === HomeTabs.DISCOVER && (
 					<section className="discover-games-container">
-						<GameCardPreviewList>
+						{/* <GameCardPreviewList>
 							{filteredGameList.map((game) => {
 								return (
 									<GameCardPreviewV2
@@ -226,19 +226,21 @@ const HomePage = () => {
 									/>
 								);
 							})}
-						</GameCardPreviewList>
+						</GameCardPreviewList> */}
+						<div className='result-not-found'>Opps, không tìm thấy kết quả!!!</div>
 					</section>
 				)}
 
 				{activeTab === HomeTabs.JOINED && (
 					<section className="joined-games-container">
-						<GameCardPreviewList>
+						{/* <GameCardPreviewList>
 							{filteredGameList.map((game) => {
 								return (
 									<GameCardPreviewV2 key={game.id} item={game} type="joined-game" />
 								);
 							})}
-						</GameCardPreviewList>
+						</GameCardPreviewList> */}
+						<div className='result-not-found'>Opps, không tìm thấy kết quả!!!</div>
 					</section>
 				)}
 			</div>
