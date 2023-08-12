@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import useLang from 'utils/hooks/use-lang';
 import { Input, Page, useNavigate } from 'zmp-ui';
 import { LiaVolleyballBallSolid } from 'react-icons/lia';
@@ -8,7 +8,10 @@ import { GameLevels, GameTypes, HomeTabs } from 'ui/common/constants';
 import { GameCardPreviewList } from 'ui/components/game-card-preview-list';
 import { GameCardPreview } from 'ui/components/game-card-preview';
 import { setNavigationBarLeftButton } from 'zmp-sdk';
+import { GameCardPreviewV2 } from 'ui/components/game-card-preview/game-card-preview-v2';
 // import { FaPersonSwimming } from 'react-icons/fa';
+import { Fetch } from 'core/network';
+import { getUserInfo } from 'zmp-sdk';
 
 const tags = [
 	{
@@ -35,8 +38,8 @@ export const gameList = [
 		id: '1',
 		gameName: 'Chơi cùng chúng mình nhé!',
 		time: '05:00, 10/08/2023',
-		bgSrc: GameTypes.BADMINTON.bgSrc,
-		gameType: GameTypes.BADMINTON.name,
+		bgSrc: GameTypes[6].bgSrc,
+		gameType: GameTypes[6].name,
 		gameLevels: [GameLevels.BEGINNER, GameLevels.INTER, GameLevels.ADVANCED],
 		location: 'VNG Campus, Tan Thuan, KCN trong KCX, quan 7, Ho Chi Minh',
 		participants: [
@@ -44,16 +47,19 @@ export const gameList = [
 				id: '1',
 				avatar: 'https://s120-ava-talk.zadn.vn/1/d/c/a/20/120/a227b4c5c98c95319111257af9a9610a.jpg',
 				isHost: true,
+				name: 'dongmt',
 			},
 			{
 				id: '2',
 				avatar: 'https://s120-ava-talk.zadn.vn/1/d/c/a/20/120/a227b4c5c98c95319111257af9a9610a.jpg',
 				isHost: false,
+				name: 'dongmt',
 			},
 			{
 				id: '3',
 				avatar: 'https://s120-ava-talk.zadn.vn/1/d/c/a/20/120/a227b4c5c98c95319111257af9a9610a.jpg',
 				isHost: false,
+				name: 'dongmt',
 			},
 		],
 	},
@@ -61,8 +67,8 @@ export const gameList = [
 		id: '2',
 		gameName: 'Chơi cùng chúng mình nhé!',
 		time: '05:00, 10/08/2023',
-		bgSrc: GameTypes.SOCCER.bgSrc,
-		gameType: GameTypes.SOCCER.name,
+		bgSrc: GameTypes[5].bgSrc,
+		gameType: GameTypes[5].name,
 		gameLevels: [GameLevels.INTER, GameLevels.ADVANCED],
 		location: 'VNG Campus, Tan Thuan, KCN trong KCX, quan 7, Ho Chi Minh',
 		participants: [],
@@ -71,8 +77,8 @@ export const gameList = [
 		id: '3',
 		gameName: 'Chơi cùng chúng mình nhé!',
 		time: '05:00, 10/08/2023',
-		bgSrc: GameTypes.SOCCER.bgSrc,
-		gameType: GameTypes.SOCCER.name,
+		bgSrc: GameTypes[5].bgSrc,
+		gameType: GameTypes[5].name,
 		gameLevels: [GameLevels.INTER, GameLevels.ADVANCED],
 		location: 'VNG Campus, Tan Thuan, KCN trong KCX, quan 7, Ho Chi Minh',
 		participants: [],
@@ -81,8 +87,8 @@ export const gameList = [
 		id: '4',
 		gameName: 'Chơi cùng chúng mình nhé!',
 		time: '05:00, 10/08/2023',
-		bgSrc: GameTypes.SOCCER.bgSrc,
-		gameType: GameTypes.SOCCER.name,
+		bgSrc: GameTypes[5].bgSrc,
+		gameType: GameTypes[5].name,
 		gameLevels: [GameLevels.INTER, GameLevels.ADVANCED],
 		location: 'VNG Campus, Tan Thuan, KCN trong KCX, quan 7, Ho Chi Minh',
 		participants: [],
@@ -91,8 +97,8 @@ export const gameList = [
 		id: '5',
 		gameName: 'Chơi cùng chúng mình nhé!',
 		time: '05:00, 10/08/2023',
-		bgSrc: GameTypes.SOCCER.bgSrc,
-		gameType: GameTypes.SOCCER.name,
+		bgSrc: GameTypes[5].bgSrc,
+		gameType: GameTypes[5].name,
 		gameLevels: [GameLevels.INTER, GameLevels.ADVANCED],
 		location: 'VNG Campus, Tan Thuan, KCN trong KCX, quan 7, Ho Chi Minh',
 		participants: [],
@@ -109,6 +115,64 @@ const HomePage = () => {
 	}, []);
 
 	const [activeTab, setActiveTab] = useState(HomeTabs.DISCOVER);
+	const [filteredGameList, setFilteredGameList] = useState([]);
+	const [gameCates, setGameCates] = useState([]);
+	const [userInfo, setUserInfo] = useState<any>(null);
+	const [activeTagName, setActiveTagName] = useState<string>('');
+
+	useEffect(() => {
+		const _getUserInfo = async () => {
+			if (!userInfo) {
+				const res = await getUserInfo();
+				setUserInfo(res.userInfo);
+			}
+		};
+
+		_getUserInfo();
+	}, []);
+
+	useEffect(() => {
+		async function getGameCates() {
+			const res = await Fetch.get('/sports');
+
+			if (res.data?.data?.length) {
+				setGameCates(res.data.data);
+			}
+		}
+
+		getGameCates();
+	}, []);
+
+	useEffect(() => {
+		async function getAllSports() {
+			let _userInfo = userInfo;
+			if (!_userInfo) {
+				_userInfo = (await getUserInfo()).userInfo;
+				setUserInfo(_userInfo);
+			}
+
+			const res = await Fetch.get('/events');
+			console.log('[mtd] res ', res.data.data);
+			if (res.data?.data?.length) {
+				let list = res.data.data;
+
+				if (activeTab === HomeTabs.DISCOVER) {
+					list = list;
+				} else {
+					list = list.filter((i) => i.players.includes(_userInfo.id));
+				}
+
+				//TODO: filter out...
+				if (activeTagName) {
+					list = list.filter((i) => i.sport === activeTagName);
+				}
+
+				setFilteredGameList(list);
+			}
+		}
+
+		getAllSports();
+	}, [activeTab, activeTagName]);
 
 	//TODO: filter by which...
 	//We get from results -> and display...
@@ -116,33 +180,13 @@ const HomePage = () => {
 	return (
 		<Page className="zpage-container no-header">
 			<div className="home-container">
-				{/* <div className="home-header">
-					<Input.Search
-						className="search"
-						placeholder={`${t('STR_SEARCH_PLACE_HOLDER')}...`}
-						loading={isLoading}
-						onSearch={(text) => console.log('[mtd] text: ', text)}
-					/>
-				</div> */}
-				{/* <section className="discover-tags-container">
-					<ul className="discover-tags-list">
-						{tags.map((tag) => {
-							return (
-								<li key={tag.name} className="discover-tag-item">
-									{tag.icon}
-									<span className="discover-tag-item__text">{tag.name}</span>
-								</li>
-							);
-						})}
-					</ul>
-				</section> */}
 				<div className="home-tabs-container">
 					<span
 						className={`home-tab ${HomeTabs.DISCOVER === activeTab && 'active'}`}
 						onClick={() => {
 							setActiveTab(HomeTabs.DISCOVER);
 						}}>
-						Khám phá
+						Tất cả
 					</span>
 					<span
 						className={`home-tab ${HomeTabs.JOINED === activeTab && 'active'}`}
@@ -153,32 +197,72 @@ const HomePage = () => {
 					</span>
 				</div>
 
+				<section className="discover-tags-container">
+					<ul className="discover-tags-list">
+						{gameCates.map((gameCate) => {
+							return (
+								<li
+									onClick={() => {
+										if (activeTagName === gameCate.name) {
+											setActiveTagName('');
+										} else {
+											setActiveTagName(gameCate.name);
+										}
+									}}
+									key={gameCate.id}
+									className={`discover-tag-item ${
+										activeTagName === gameCate.name && 'active'
+									}`}>
+									<span className="discover-tag-item__text">{gameCate.name}</span>
+								</li>
+							);
+						})}
+					</ul>
+				</section>
+
 				{activeTab === HomeTabs.DISCOVER && (
 					<section className="discover-games-container">
-						<GameCardPreviewList>
-							{gameList.map((game) => {
-								return (
-									<GameCardPreview
-										key={game.id}
-										onClick={() => navigate('/my-events/result')}
-										item={game}
-										type="discover-game"
-									/>
-								);
-							})}
-						</GameCardPreviewList>
+						{filteredGameList?.length > 0 ? (
+							<GameCardPreviewList>
+								{filteredGameList.map((game) => {
+									return (
+										<GameCardPreviewV2
+											key={game.id}
+											onClick={() =>
+												navigate('/my-events/result' + '/' + game.id)
+											}
+											item={game}
+											type="discover-game"
+										/>
+									);
+								})}
+							</GameCardPreviewList>
+						) : (
+							<div className="result-not-found">Opps, không tìm thấy kết quả!!!</div>
+						)}
 					</section>
 				)}
 
 				{activeTab === HomeTabs.JOINED && (
 					<section className="joined-games-container">
-						<GameCardPreviewList>
-							{gameList.map((game) => {
-								return (
-									<GameCardPreview key={game.id} item={game} type="joined-game" />
-								);
-							})}
-						</GameCardPreviewList>
+						{filteredGameList?.length > 0 ? (
+							<GameCardPreviewList>
+								{filteredGameList.map((game) => {
+									return (
+										<GameCardPreviewV2
+											key={game.id}
+											item={game}
+											type="joined-game"
+											onClick={() =>
+												navigate('/my-events/result' + '/' + game.id)
+											}
+										/>
+									);
+								})}
+							</GameCardPreviewList>
+						) : (
+							<div className="result-not-found">Opps, không tìm thấy kết quả!!!</div>
+						)}
 					</section>
 				)}
 			</div>

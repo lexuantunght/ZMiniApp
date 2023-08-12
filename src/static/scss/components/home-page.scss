@@ -8,6 +8,7 @@
 
 	scrollbar-width: none;
 	-ms-overflow-style: none;
+	margin-bottom: 12px;
 
 	&::-webkit-scrollbar {
 		display: none;
@@ -24,11 +25,20 @@
 		display: flex;
 		align-items: center;
 		gap: 4px;
-		padding: 4px;
+		padding: 4px 8px;
 		border: 1px solid #ccc;
 		background-color: #f7f7f7;
 		margin-right: 10px;
-		border-radius: 5px;
+		border-radius: 10px;
+
+		&:hover {
+			cursor: pointer;
+		}
+
+		&.active {
+			background-color: #52A0FF;
+			color: white
+		}
 	}
 }
 
@@ -85,8 +95,7 @@
 		font-weight: 600;
 	}
 
-	&__status {
-	}
+	&__status {}
 
 	&__body {
 		padding: 8px;
@@ -167,28 +176,184 @@
 	}
 }
 
+.game-card-preview-v2 {
+	border-radius: 12px;
+	width: 100%;
+	color: black;
+	margin-bottom: 12px;
+	background-size: cover;
+	background-position: center;
+	padding: 24px 12px 12px 12px;
+
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+	&__body {
+		position: relative;
+		padding: 8px;
+
+
+		border-radius: 12px;
+		background: #FFF;
+
+		.container {
+			display: flex;
+			align-items: center;
+
+		}
+	}
+
+	&__icon {
+		font-size: 20px;
+	}
+
+	&__host-name-wrapper {
+		display: flex;
+		gap: 4px;
+		align-items: center;
+	}
+
+	&__name {
+		font-size: 16px;
+		font-style: normal;
+		font-weight: 700;
+		line-height: normal;
+		margin-left: 4px;
+
+		white-space: nowrap;
+			/* Prevent text from wrapping */
+			overflow: hidden;
+			/* Hide overflowing content */
+			text-overflow: ellipsis;
+			/* Display ellipsis (...) for overflow */
+	}
+
+	&__time-container {
+		display: flex;
+		gap: 4px;
+		align-items: center;
+	}
+
+	&__time {
+		font-size: 14px;
+	}
+
+	&__game-type {
+		background-color: #EBF4FF;
+		text-align: center;
+		color: #52A0FF;
+		border-top-left-radius: 8px;
+		border-top-right-radius: 8px;
+		padding: 2px 4px;
+		flex-shrink: 1;
+		font-weight: 600;
+		margin: -8px;
+		margin-bottom: 8px;
+	}
+
+	&__status {}
+
+	&__participants {
+		display: flex;
+		gap: 4px;
+		margin-bottom: 16px;
+	}
+
+	&__participant {
+		&--host {
+			box-sizing: content-box;
+			outline: 2px solid orange;
+		}
+	}
+
+	&__picker {
+		width: 25px;
+		height: 25px;
+		border: 2px dashed orange;
+		background-color: rgb(255, 210, 127);
+		border-radius: 50%;
+	}
+
+	&__game-levels-container {
+		display: flex;
+		gap: 4px;
+		margin-bottom: 6px;
+	}
+
+	&__game-levels-list {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+
+		display: flex;
+		gap: 4px;
+	}
+
+	&__game-level {
+		padding: 4px;
+		border-radius: 4px;
+		color: white;
+		font-size: 12px;
+		line-height: 1;
+
+		&.beginner {
+			background-color: rgb(69, 69, 255);
+		}
+
+		&.inter {
+			background-color: green;
+		}
+
+		&.ad {
+			background-color: orange;
+		}
+	}
+
+	&__location {
+		display: flex;
+		gap: 4px;
+	}
+
+	&__location-text {
+		font-size: 12px;
+		font-weight: 500;
+	}
+
+
+	&__btn {
+		background-color: #3056C6;
+		flex-shrink: 0;
+	}
+}
+
+
 .home-tabs-container {
 	display: flex;
 	gap: 6px;
 	margin-bottom: 8px;
+	justify-content: center;
 
 	.home-tab {
 		box-sizing: content-box;
 		display: flex;
 		align-items: center;
-		border-radius: 4px;
+		border-radius: 40px;
 		font-size: 14px;
 		font-weight: 600;
-		padding: 8px 12px;
-		background-color: white;
+		padding: 8px 20px;
+		border: 1px solid rgb(204, 204, 204);
 
 		&:hover {
 			// background-color: ;
 		}
 
 		&.active {
-			color: #52a0ff;
-			background-color: #d6e9ff;
+			background-color: white;
 		}
 	}
+}
+
+.result-not-found {
+	text-align: center;
+	font-weight: 600;
+	margin-top: 50%;
 }

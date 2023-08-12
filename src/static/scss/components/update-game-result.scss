@@ -1,0 +1,63 @@
+.update-game-result-container {
+	padding: 12px;
+	background-color: white;
+	height: 100%;
+
+	.game-name {
+		padding: 8px 12px;
+		margin: 0;
+		margin-bottom: 12px;
+
+
+		background-position: center;
+		background-size: cover;
+		height: 120px;
+		margin: -12px;
+
+		color: white;
+	}
+
+	.title {
+		margin: 0;
+		text-align: center;
+		margin: 12px;
+	}
+
+
+	.game-board-result {
+		display: flex;
+		gap: 10px;
+		justify-content: center;
+
+		margin-bottom: 40px;
+
+
+
+
+		.separator {
+			font-size: 20px;
+			font-weight: 700;
+			display: flex;
+			align-items: center;
+		}
+
+		.game-board-item {
+			display: flex;
+			align-items: center;
+			gap: 4px;
+
+			.team-name {
+				font-weight: 700;
+				font-size: 24px;
+				flex-shrink: 0;
+			}
+
+			.team-score {
+				width: 80px;
+				height: 80px;
+
+				overflow: auto;
+			}
+		}
+	}
+}
