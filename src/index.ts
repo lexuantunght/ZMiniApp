@@ -13,6 +13,7 @@ import 'static/scss/index.scss';
 import 'zmp-ui/zaui.css';
 
 import 'static/scss/app.scss';
+import 'static/scss/index.scss';
 
 // Import App Component
 import App from 'ui/app';
