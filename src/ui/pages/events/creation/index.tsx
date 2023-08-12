@@ -15,32 +15,32 @@ import { setNavigationBarTitle } from 'zmp-sdk';
 
 const sports = [
 	{
-		name: 'Football',
+		name: 'Bóng đá',
 		Icon: FootballSvg,
 	},
 	{
-		name: 'Badminton',
+		name: 'Cầu lông',
 		Icon: BadminSvg,
 	},
 	{
-		name: 'Chess',
+		name: 'Cờ vua',
 		Icon: ChessSvg,
 	},
 	{
-		name: 'Running',
+		name: 'Chạy bộ',
 		Icon: RunSvg,
 	},
 	{
-		name: 'Swimming',
+		name: 'Bơi lội',
 		Icon: SwimSvg,
 	},
 	{
-		name: 'Tennis',
+		name: 'Bóng bàn',
 		Icon: TenisSvg,
 	},
 ];
 
-const levels = ['Beginner', 'Intermediate', 'Advanced'];
+const levels = ['Người bắt đầu', 'Trung bình', 'Nâng cao'];
 
 const EventCreate = () => {
 	const { t } = useLang();
@@ -60,8 +60,8 @@ const EventCreate = () => {
 				<div className="event-page-select-list">
 					{sports.map((item, key) => (
 						<SelectCardItem
-							selected={formik.values.sport === key}
-							onClick={() => formik.setFieldValue('sport', key)}
+							selected={formik.values.sport === key + 1}
+							onClick={() => formik.setFieldValue('sport', key + 1)}
 							key={key}
 							icon={item.Icon}
 							name={item.name}
@@ -72,8 +72,8 @@ const EventCreate = () => {
 				<div className="event-page-select-list mb-4">
 					{levels.map((item, key) => (
 						<SelectCardItem
-							selected={formik.values.level === key}
-							onClick={() => formik.setFieldValue('level', key)}
+							selected={formik.values.level === key + 1}
+							onClick={() => formik.setFieldValue('level', key + 1)}
 							isLv
 							key={key}
 							name={item}
@@ -93,12 +93,12 @@ const EventCreate = () => {
 
 		items.push(
 			<div className="flex flex-col mx-3">
-				<span className="mb-1">Date start</span>
+				<span className="mb-1">Ngày bắt đầu</span>
 				<DatePicker
 					onChange={(v) => formik.setFieldValue('date', v.getTime())}
 					defaultValue={new Date()}
 				/>
-				<span className="mt-4 mb-1">Time start</span>
+				<span className="mt-4 mb-1">Thời gian</span>
 				<div className="flex items-center space-x-2">
 					<TimePicker defaultValue={Date.now()} />
 					<Icon icon="zi-arrow-right" />

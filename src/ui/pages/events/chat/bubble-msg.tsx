@@ -14,17 +14,17 @@ const BubbleMessage = (props: BubbleMessageProps) => {
 		<>
 			<Modal
 				visible={showConfirmChat}
-				title="Open Chat"
+				title="Nhắn tin"
 				onClose={() => {
 					setShowConfirmChat(false);
 				}}
 				actions={[
 					{
-						text: 'No',
+						text: 'Từ chối',
 						close: true,
 					},
 					{
-						text: 'Yes',
+						text: 'Đồng ý',
 						highLight: true,
 						close: true,
 						onClick: () =>
@@ -34,7 +34,7 @@ const BubbleMessage = (props: BubbleMessageProps) => {
 							}),
 					},
 				]}
-				description={`Are you want to open chat with ${props.userInfo?.name} Zalo?`}
+				description={`Bạn có muốn nhắn tin với ${props.userInfo?.name} bằng Zalo?`}
 			/>
 			<div className="flex space-x-2 mt-4 last:mb-4">
 				<Avatar

@@ -36,7 +36,7 @@ const EventsPage = () => {
 			</div>
 			<div className="event-page-create bg-white">
 				<Button onClick={onClickCreate} className="w-full">
-					{t('STR_CREATE_EVENT')}
+					Tạo sự kiện mới
 				</Button>
 			</div>
 		</Page>

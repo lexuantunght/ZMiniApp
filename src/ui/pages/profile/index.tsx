@@ -13,7 +13,7 @@ import sheriffBadge from 'static/images/badges/sheriff-badge.png';
 import wreath from 'static/images/badges/wreath.png';
 import { GameLevels } from 'ui/common/constants';
 
-const games = [
+export const games = [
 	{
 		id: '1',
 		name: 'Cầu lông',
