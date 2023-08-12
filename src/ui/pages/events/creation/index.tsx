@@ -111,10 +111,7 @@ const EventCreate = () => {
 			<form onSubmit={formik.handleSubmit} className="flex flex-col px-3">
 				<Progress completed={30 * (step + 1)} maxCompleted={90} />
 				{renderSteps()[step]}
-				<Button
-					htmlType={step < 2 ? 'button' : 'submit'}
-					onClick={handleSubmit}
-					className="w-full">
+				<Button htmlType="button" onClick={handleSubmit} className="w-full">
 					{t('STR_NEXT')}
 				</Button>
 			</form>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import useLang from 'utils/hooks/use-lang';
-import { Input, Page } from 'zmp-ui';
+import { Input, Page, useNavigate } from 'zmp-ui';
 import { LiaVolleyballBallSolid } from 'react-icons/lia';
 import { PiSoccerBall } from 'react-icons/pi';
 import { MdOutlineSportsTennis, MdOutlineSportsCricket } from 'react-icons/md';
@@ -29,7 +29,7 @@ const tags = [
 	},
 ];
 
-const gameList = [
+export const gameList = [
 	{
 		id: '1',
 		gameName: 'Chơi cùng chúng mình nhé!',
@@ -101,6 +101,7 @@ const gameList = [
 const HomePage = () => {
 	const [isLoading, setLoading] = useState(false);
 	const { t } = useLang();
+	const navigate = useNavigate();
 
 	const [activeTab, setActiveTab] = useState(HomeTabs.DISCOVER);
 
@@ -108,7 +109,7 @@ const HomePage = () => {
 	//We get from results -> and display...
 
 	return (
-		<Page>
+		<Page className="zpage-container no-header">
 			<div className="home-container">
 				{/* <div className="home-header">
 					<Input.Search
@@ -151,7 +152,14 @@ const HomePage = () => {
 					<section className="discover-games-container">
 						<GameCardPreviewList>
 							{gameList.map((game) => {
-								return <GameCardPreview key={game.id} item={game} type="discover-game" />;
+								return (
+									<GameCardPreview
+										key={game.id}
+										onClick={() => navigate('/my-events/result')}
+										item={game}
+										type="discover-game"
+									/>
+								);
 							})}
 						</GameCardPreviewList>
 					</section>
@@ -161,7 +169,9 @@ const HomePage = () => {
 					<section className="joined-games-container">
 						<GameCardPreviewList>
 							{gameList.map((game) => {
-								return <GameCardPreview key={game.id} item={game} type="joined-game" />;
+								return (
+									<GameCardPreview key={game.id} item={game} type="joined-game" />
+								);
 							})}
 						</GameCardPreviewList>
 					</section>

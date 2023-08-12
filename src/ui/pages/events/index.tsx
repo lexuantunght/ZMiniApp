@@ -5,6 +5,8 @@ import { Page, Button, useNavigate, AnimationRoutes, Header } from 'zmp-ui';
 import EventCreate from './creation';
 import EventCreateResult from './creation/result';
 import EventPageChat from './chat';
+import { GameCardPreview } from 'ui/components/game-card-preview';
+import { gameList } from '../home';
 
 const EventsPage = () => {
 	const { t } = useLang();
@@ -17,7 +19,16 @@ const EventsPage = () => {
 	return (
 		<Page className="zpage-container">
 			<Header className="zpage-header" showBackIcon={false} title={t('STR_MY_EVENTS')} />
-			<div className="event-page-list"></div>
+			<div className="event-page-list">
+				{gameList.map((item, key) => (
+					<GameCardPreview
+						onClick={() => navigate('/my-events/result')}
+						key={key}
+						item={item}
+						type="discover-game"
+					/>
+				))}
+			</div>
 			<div className="event-page-create bg-white">
 				<Button onClick={onClickCreate} className="w-full">
 					{t('STR_CREATE_EVENT')}

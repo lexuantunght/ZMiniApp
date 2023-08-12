@@ -2,20 +2,29 @@
 	min-height: unset !important;
 	height: calc(100vh - var(--zaui-safe-area-inset-bottom) - 48px) !important;
 	position: relative;
-	padding-top: 44px;
+	&:not(.no-header) {
+		padding-top: 44px;
+	}
 }
 .zpage-header {
 }
 
 .event-page-list {
+	padding-left: 0.75rem;
+	padding-right: 0.75rem;
+	& > :first-child {
+		margin-top: 0.75rem;
+	}
+	overflow-y: scroll;
+	height: calc(100% - 72px);
 }
 
 .event-page-create {
-	position: absolute;
-	bottom: 0;
+	position: relative;
 	left: 0;
 	width: 100%;
 	padding: 0.75rem;
+	height: 72px;
 }
 
 .event-page-select-list {
