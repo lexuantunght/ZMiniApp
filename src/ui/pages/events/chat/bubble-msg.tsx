@@ -14,36 +14,36 @@ const BubbleMessage = (props: BubbleMessageProps) => {
 		<>
 			<Modal
 				visible={showConfirmChat}
-				title="Open Chat"
+				title="Nhắn tin"
 				onClose={() => {
 					setShowConfirmChat(false);
 				}}
 				actions={[
 					{
-						text: 'No',
+						text: 'Từ chối',
 						close: true,
 					},
 					{
-						text: 'Yes',
+						text: 'Đồng ý',
 						highLight: true,
 						close: true,
 						onClick: () =>
 							openChat({
-								id: props.userInfo.id,
+								id: props.userInfo?.id,
 								type: 'user',
 							}),
 					},
 				]}
-				description={`Are you want to open chat with ${props.userInfo.name} Zalo?`}
+				description={`Bạn có muốn nhắn tin với ${props.userInfo?.name} bằng Zalo?`}
 			/>
 			<div className="flex space-x-2 mt-4 last:mb-4">
 				<Avatar
 					onClick={() => setShowConfirmChat(true)}
 					size={40}
-					src={props.userInfo.avatar}
+					src={props.userInfo?.avatar}
 				/>
 				<div className="p-2 rounded-lg bg-slate-300 flex flex-col">
-					<span className="text-sm font-semibold">{props.userInfo.name}</span>
+					<span className="text-sm font-semibold">{props.userInfo?.name}</span>
 					<span>{props.content}</span>
 				</div>
 			</div>

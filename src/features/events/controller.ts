@@ -13,8 +13,13 @@ class EventsController {
 		return EventsAPI.sendMessage(params);
 	}
 
-	getAllMessages(eventId: number) {
-		return EventsAPI.getAllMessages(eventId);
+	async getAllMessages(eventId: number | string) {
+		const { data } = await EventsAPI.getAllMessages(eventId);
+		return data.data;
+	}
+
+	getEventById(eventId: number | string) {
+		return EventsAPI.getEventById(eventId);
 	}
 }
 

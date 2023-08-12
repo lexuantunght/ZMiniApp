@@ -5,6 +5,7 @@ import { AnimationRoutes, BottomNavigation, Icon, Page } from 'zmp-ui';
 import HomePage from 'ui/pages/home';
 import ProfilePage from 'ui/pages/profile';
 import EventsPage from 'ui/pages/events';
+import ProfilePageV2 from './pages/profile/profile-v2';
 import { UpdateGameResult } from 'ui/pages/update-game-result/update-game-result';
 
 const BottomTab = () => {
@@ -16,8 +17,8 @@ const BottomTab = () => {
 			<AnimationRoutes>
 				<Route path="/" element={<HomePage />} />
 				<Route path="/my-events/*" element={<EventsPage />} />
-				<Route path="/profile" element={<ProfilePage />} />
-				<Route path="/update-game-result/:gameId" element={<UpdateGameResult/>}/>
+				<Route path="/profile" element={<ProfilePageV2 />} />
+				<Route path="/update-game-result/:gameId" element={<UpdateGameResult />} />
 			</AnimationRoutes>
 			<BottomNavigation fixed activeKey={activeTab} onChange={setActiveTab}>
 				<BottomNavigation.Item

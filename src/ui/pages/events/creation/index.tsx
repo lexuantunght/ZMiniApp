@@ -1,49 +1,90 @@
 import React from 'react';
 import useLang from 'utils/hooks/use-lang';
-import {
-	Button,
-	DatePicker,
-	Header,
-	Icon,
-	Input,
-	Page,
-	Progress,
-	Switch,
-	useNavigate,
-} from 'zmp-ui';
+import { Button, DatePicker, Icon, Input, Page, Progress, Switch, useNavigate } from 'zmp-ui';
 import TimePicker from 'ui/components/time-picker';
 import { useFormik } from 'formik';
+import FootballSvg from 'static/img/football.png';
+import BadminSvg from 'static/img/badminton.png';
+import ChessSvg from 'static/img/chesss.png';
+import RunSvg from 'static/img/run.png';
+import SwimSvg from 'static/img/swim.png';
+import TenisSvg from 'static/img/tenis.png';
 import SelectCardItem from './card-item';
+import EventsController from 'features/events/controller';
+import { setNavigationBarTitle } from 'zmp-sdk';
 
-const sports = ['Badminton', 'Chess', 'Football', 'Swimming', 'Running'];
+const sports = [
+	{
+		name: 'Bóng đá',
+		Icon: FootballSvg,
+	},
+	{
+		name: 'Cầu lông',
+		Icon: BadminSvg,
+	},
+	{
+		name: 'Cờ vua',
+		Icon: ChessSvg,
+	},
+	{
+		name: 'Chạy bộ',
+		Icon: RunSvg,
+	},
+	{
+		name: 'Bơi lội',
+		Icon: SwimSvg,
+	},
+	{
+		name: 'Bóng bàn',
+		Icon: TenisSvg,
+	},
+];
 
-const levels = ['Beginner', 'Intermediate', 'Advanced'];
+const levels = ['Người bắt đầu', 'Trung bình', 'Nâng cao'];
 
 const EventCreate = () => {
 	const { t } = useLang();
 	const [step, setStep] = React.useState(0);
 	const navigate = useNavigate();
+	const [enableCost, setEnableCost] = React.useState(false);
+
+	React.useEffect(() => {
+		setNavigationBarTitle({ title: 'Create event' });
+	}, []);
 
 	const renderSteps = () => {
 		const items: JSX.Element[] = [];
 		items.push(
 			<>
-				<span>{t('STR_SELECT_SPORT')}</span>
+				<span className="mb-4 mx-3">{t('STR_SELECT_SPORT')}</span>
 				<div className="event-page-select-list">
 					{sports.map((item, key) => (
-						<SelectCardItem key={key} name={item} />
+						<SelectCardItem
+							selected={formik.values.sport === key + 1}
+							onClick={() => formik.setFieldValue('sport', key + 1)}
+							key={key}
+							icon={item.Icon}
+							name={item.name}
+						/>
 					))}
 				</div>
-				<span>{t('STR_SELECT_LEVEL')}</span>
-				<div className="event-page-select-list">
+				<span className="my-4 mx-3">{t('STR_SELECT_LEVEL')}</span>
+				<div className="event-page-select-list mb-4">
 					{levels.map((item, key) => (
-						<SelectCardItem key={key} name={item} />
+						<SelectCardItem
+							selected={formik.values.level === key + 1}
+							onClick={() => formik.setFieldValue('level', key + 1)}
+							isLv
+							key={key}
+							name={item}
+						/>
 					))}
 				</div>
 				<Input
 					id="numberPlayers"
 					onChange={formik.handleChange}
 					defaultValue={2}
+					groupClassName="mx-3"
 					type="number"
 					label={t('STR_NUMBER_PLAYERS')}
 				/>
@@ -51,31 +92,47 @@ const EventCreate = () => {
 		);
 
 		items.push(
-			<>
-				<span>{t('STR_DATE_TIME')}</span>
+			<div className="flex flex-col mx-3">
+				<span className="mb-1">Ngày bắt đầu</span>
 				<DatePicker
 					onChange={(v) => formik.setFieldValue('date', v.getTime())}
 					defaultValue={new Date()}
 				/>
+				<span className="mt-4 mb-1">Thời gian</span>
 				<div className="flex items-center space-x-2">
 					<TimePicker defaultValue={Date.now()} />
 					<Icon icon="zi-arrow-right" />
 					<TimePicker defaultValue={Date.now() + 1800000} />
 				</div>
-				<Input label={t('STR_LOCATION')} />
-			</>
+				<Input
+					groupClassName="mt-4"
+					id="address"
+					onChange={formik.handleChange}
+					label={t('STR_LOCATION')}
+				/>
+			</div>
 		);
 
 		items.push(
-			<>
-				<Input label={t('STR_ACT_NAME')} />
-				<div className="flex justify-between">
+			<div className="flex flex-col px-3">
+				<Input id="name" onChange={formik.handleChange} label={t('STR_ACT_NAME')} />
+				<div className="flex justify-between mt-4">
 					<span>{t('STR_COST')}</span>
-					<Switch />
+					<Switch
+						onChange={(e) => setEnableCost(e.target.checked)}
+						checked={enableCost}
+					/>
 				</div>
-				<Input type="number" />
-				<Input.TextArea label={t('STR_NOTE')} />
-			</>
+				<Input
+					id="cost"
+					onChange={formik.handleChange}
+					disabled={!enableCost}
+					value={formik.values.cost}
+					type="number"
+				/>
+				<br />
+				<Input.TextArea id="note" onChange={formik.handleChange} label={t('STR_NOTE')} />
+			</div>
 		);
 
 		return items;
@@ -85,19 +142,20 @@ const EventCreate = () => {
 		if (step < 2) {
 			setStep(step + 1);
 		} else {
-			navigate('/my-events/result', { replace: true });
+			EventsController.createEvent(formik.values);
+			navigate('/my-events', { replace: true });
 		}
 	};
 
 	const formik = useFormik({
 		initialValues: {
-			sport: '',
-			level: '',
+			sport: 0,
+			level: 0,
 			numerPlayers: 2,
 			date: Date.now(),
 			startTime: new Date().getTime(),
 			endTime: new Date().getTime() + 180000,
-			location: '',
+			address: '',
 			name: '',
 			cost: 0,
 			note: '',
@@ -107,13 +165,16 @@ const EventCreate = () => {
 
 	return (
 		<Page className="zpage-container">
-			<Header className="zpage-header" title={t('STR_CREATE_EVENT')} />
-			<form onSubmit={formik.handleSubmit} className="flex flex-col px-3">
-				<Progress completed={30 * (step + 1)} maxCompleted={90} />
+			<form onSubmit={formik.handleSubmit} className="flex flex-col">
+				<div style={{ marginTop: -12 }}>
+					<Progress completed={30 * (step + 1)} maxCompleted={90} />
+				</div>
 				{renderSteps()[step]}
-				<Button htmlType="button" onClick={handleSubmit} className="w-full">
-					{t('STR_NEXT')}
-				</Button>
+				<div className="p-3">
+					<Button htmlType="button" onClick={handleSubmit} className="w-full">
+						{t('STR_NEXT')}
+					</Button>
+				</div>
 			</form>
 		</Page>
 	);

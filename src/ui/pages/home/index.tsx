@@ -7,6 +7,7 @@ import { MdOutlineSportsTennis, MdOutlineSportsCricket } from 'react-icons/md';
 import { GameLevels, GameTypes, HomeTabs } from 'ui/common/constants';
 import { GameCardPreviewList } from 'ui/components/game-card-preview-list';
 import { GameCardPreview } from 'ui/components/game-card-preview';
+import { setNavigationBarLeftButton } from 'zmp-sdk';
 import { GameCardPreviewV2 } from 'ui/components/game-card-preview/game-card-preview-v2';
 // import { FaPersonSwimming } from 'react-icons/fa';
 import { Fetch } from 'core/network';
@@ -53,14 +54,12 @@ export const gameList = [
 				avatar: 'https://s120-ava-talk.zadn.vn/1/d/c/a/20/120/a227b4c5c98c95319111257af9a9610a.jpg',
 				isHost: false,
 				name: 'dongmt',
-
 			},
 			{
 				id: '3',
 				avatar: 'https://s120-ava-talk.zadn.vn/1/d/c/a/20/120/a227b4c5c98c95319111257af9a9610a.jpg',
 				isHost: false,
 				name: 'dongmt',
-
 			},
 		],
 	},
@@ -111,11 +110,15 @@ const HomePage = () => {
 	const { t } = useLang();
 	const navigate = useNavigate();
 
+	React.useEffect(() => {
+		setNavigationBarLeftButton({ type: 'none' });
+	}, []);
+
 	const [activeTab, setActiveTab] = useState(HomeTabs.DISCOVER);
 	const [filteredGameList, setFilteredGameList] = useState([]);
 	const [gameCates, setGameCates] = useState([]);
 	const [userInfo, setUserInfo] = useState<any>(null);
-	const [activeTagName, setActiveTagName] =useState<string>('');
+	const [activeTagName, setActiveTagName] = useState<string>('');
 
 	useEffect(() => {
 		const _getUserInfo = async () => {
@@ -123,7 +126,7 @@ const HomePage = () => {
 				const res = await getUserInfo();
 				setUserInfo(res.userInfo);
 			}
-		}
+		};
 
 		_getUserInfo();
 	}, []);
@@ -138,7 +141,6 @@ const HomePage = () => {
 		}
 
 		getGameCates();
-
 	}, []);
 
 	useEffect(() => {
@@ -157,13 +159,13 @@ const HomePage = () => {
 				if (activeTab === HomeTabs.DISCOVER) {
 					list = list;
 				} else {
-					list = list.filter(i  => i.players.includes(_userInfo.id));
+					list = list.filter((i) => i.players.includes(_userInfo.id));
 				}
 
 				//TODO: filter out...
 				if (activeTagName) {
-					list = list.filter(i => i.sport === activeTagName);
-				} 
+					list = list.filter((i) => i.sport === activeTagName);
+				}
 
 				setFilteredGameList(list);
 			}

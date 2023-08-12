@@ -12,8 +12,8 @@ export class Fetching {
 		return this.adapter.get(`${AppConfig.base_url}${path}`);
 	}
 
-	public async post(path: string, body: unknown) {
-		return this.adapter.post(`${AppConfig.base_url}${path}`, body).catch((err) => {
+	public async post(path: string, body: unknown, headers?: any) {
+		return this.adapter.post(`${AppConfig.base_url}${path}`, body, headers).catch((err) => {
 			if (err.response?.data?.message) {
 				throw new NetworkError(err.response.status, err.response.data.message);
 			}

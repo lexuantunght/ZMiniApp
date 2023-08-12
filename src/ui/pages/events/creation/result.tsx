@@ -24,9 +24,8 @@ interface EventResult {
 const EventCreateResult = () => {
 	const { t } = useLang();
 	const navigate = useNavigate();
-	
+
 	const userId = window.location.pathname.slice(window.location.pathname.length - 1);
-	
 
 	const fetchedData: EventResult = {
 		id: 1,
@@ -215,7 +214,9 @@ const EventCreateResult = () => {
 							Xem thêm
 						</a>
 					</div>
-					<Avatar.Group horizontal onCounterClick={() => navigate('/my-events/members' + '/' + id)}>
+					<Avatar.Group
+						horizontal
+						onCounterClick={() => navigate('/my-events/members' + '/' + id)}>
 						{members.map(({ id, avatar }) => (
 							<Avatar key={id} src={avatar} />
 						))}

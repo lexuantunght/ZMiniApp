@@ -1,23 +1,22 @@
 key;vi;en
-STR_SETTING;Cài đặt;Setting
-STR_HOME;Trang chủ;Home
-STR_MY_EVENTS;Sự kiện;My events
-STR_PROFILE;Thông tin;Profile
-STR_CREATED_EVENTS;Sự kiện đã tạo;Created events
-STR_CREATE_EVENT;Tạo sự kiện;Create event
-STR_SELECT_SPORT;Chọn môn thể thao;Select sport
-STR_SELECT_LEVEL;Chọn trình độ;Select level
-STR_NUMBER_PLAYERS;Số người chơi;Number of players
-STR_NEXT;Kế tiếp;Next
-STR_DATE_TIME;Thời gian;Date and time
-STR_LOCATION;Địa điểm;Location
-STR_ACT_NAME;Tên hoạt động;Activity name
-STR_COST;Chi phí;Cost
-STR_NOTE;Ghi chú;Note
-STR_CHAT;Thảo luận;Discuss
-STR_INVITE;Mời bạn bè;Invite
-STR_EVENT_DETAIL;Chi tiết;Event detail
-STR_EVENT_MEMBERS;Thành viên sự kiện;Event members
-STR_TYPE_MSG;Nhập tin nhắn;Type message
-STR_SEARCH_PLACE_HOLDER;Tìm kiếm;Search
-STR_JOIN_BTN;Tham gia; Join
+STR_SETTING;Cài đặt;Cài đặt 
+STR_HOME;Trang chủ;Trang chủ
+STR_MY_EVENTS;Sự kiện;Sự kiện
+STR_PROFILE;Thông tin;Thông tin
+STR_CREATED_EVENTS;Sự kiện đã tạo;Sự kiện đã tạo
+STR_CREATE_EVENT;Tạo sự kiện;Tạo sự kiện
+STR_SELECT_SPORT;Chọn môn thể thao;Chọn môn thể thao
+STR_SELECT_LEVEL;Chọn trình độ;Chọn trình độ
+STR_NUMBER_PLAYERS;Số người chơi;Số người chơi
+STR_NEXT;Kế tiếp;Kế tiếp
+STR_DATE_TIME;Thời gian;Thời gian
+STR_LOCATION;Địa điểm;Địa điểm
+STR_ACT_NAME;Tên hoạt động;Tên hoạt động
+STR_COST;Chi phí;Chi phí
+STR_NOTE;Ghi chú;Ghi chú
+STR_CHAT;Thảo luận;Thảo luận
+STR_INVITE;Mời bạn bè;Mời bạn bè
+STR_EVENT_DETAIL;Chi tiết sự kiện;Chi tiết sự kiện
+STR_TYPE_MSG;Nhập tin nhắn;Nhập tin nhắn
+STR_SEARCH_PLACE_HOLDER;Tìm kiếm;Tìm kiếm
+STR_JOIN_BTN;Tham gia;Tham gia
