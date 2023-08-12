@@ -1,0 +1,72 @@
+.zpage-container {
+	min-height: unset !important;
+	height: calc(100vh - var(--zaui-safe-area-inset-bottom) - 48px) !important;
+	position: relative;
+	&:not(.no-header) {
+		padding-top: 44px;
+	}
+}
+.zpage-header {
+}
+
+.event-page-list {
+	padding-left: 0.75rem;
+	padding-right: 0.75rem;
+	& > :first-child {
+		margin-top: 0.75rem;
+	}
+	overflow-y: scroll;
+	height: calc(100% - 72px);
+}
+
+.event-page-create {
+	position: relative;
+	left: 0;
+	width: 100%;
+	padding: 0.75rem;
+	height: 72px;
+}
+
+.event-page-select-list {
+	display: flex;
+	overflow-x: scroll;
+	margin-left: -0.75rem;
+	margin-right: -0.75rem;
+	@extend .hide-scrollbar;
+}
+.ep-select-card {
+	min-width: 80px;
+	height: 64px;
+	border: 1px solid #000;
+	border-radius: 12px;
+
+	&:not(:last-child) {
+		margin-right: 8px;
+	}
+	&:first-child {
+		margin-left: 0.75rem;
+	}
+	&:last-child {
+		margin-right: 0.75rem;
+	}
+}
+
+.ep-chat-box {
+	overflow-y: scroll;
+	height: calc(100% - 42px);
+	padding-left: 0.75rem;
+	padding-right: 0.75rem;
+}
+.ep-chat-input {
+	position: absolute;
+	height: 42px;
+	bottom: 0.5rem;
+	left: 0.75rem;
+	width: calc(100% - 1.5rem);
+	display: flex;
+	align-items: center;
+	&-btn {
+		min-width: 32px !important;
+		margin-left: 0.5rem !important;
+	}
+}
